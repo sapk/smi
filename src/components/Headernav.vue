@@ -9,6 +9,9 @@
       <div class="pull-left info">SMI</div>
     </div>
   </a>
+  <nav role="navigation" class="navbar navbar-static-top">
+    <a data-toggle="offcanvas" role="button" class="sidebar-toggle"><span class="sr-only">Toggle navigation</span></a>
+  </nav>
 </header>
 </template>
 
@@ -146,5 +149,9 @@ export default {
 }
 .main-header .navbar-brand {
 	color:#fff
+}
+
+.main-header .navbar {
+    background-color: #3c8dbc;
 }
 </style>
