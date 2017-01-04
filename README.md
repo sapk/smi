@@ -1,6 +1,6 @@
-# smi
+# simple-monitor-interface
 
-> Simple Monitoring Interface
+> A simple interface to monitor your personal cluster.
 
 ## Build Setup
 
@@ -13,15 +13,6 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader), the [docs for vuetifyjs](https://github.com/vuetifyjs/docs) or the [docs for vue-router](https://router.vuejs.org) since this app use those framworks.
