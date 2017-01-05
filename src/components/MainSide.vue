@@ -5,7 +5,7 @@
   )
     div(class="vuetify" slot="top")
       router-link(
-        to="/about",
+        to="/",
         class="sidebar__logo"
       )
         img(
@@ -54,24 +54,25 @@
           { href: '/overview', text: 'Overview', icon: 'dashboard' },
           {
             /*header: "test",*/
-            parent: { href: '/collectors', text: 'Collectors', icon: 'device_hub'},
+            parent: { text: 'Collectors', icon: 'device_hub'},
             items: [
             ],
           },
           {
-            parent: { href: '/hosts', text: 'Hosts', icon: 'dns'},
+            parent: { text: 'Hosts', icon: 'dns'},
             items: [
             ]
           },
           {
-            parent: { href: '/dockers', text: 'Dockers', icon: 'widgets'},
+            parent: { text: 'Docker', icon: 'widgets'},
             items: [
-              { href: '/dockers/containers', text: 'Containers', icon: 'stop' , chip: '10'},
-              { href: '/dockers/hosts', text: 'Hosts', icon: 'dns' , chip: '10'},
-              { href: '/dockers/networks', text: 'Networks', icon: 'share' , chip: '10'},
-              { href: '/dockers/volumes', text: 'Volumes', icon: 'storage' , chip: '10'}
+              { href: '/docker/hosts', text: 'Hosts', icon: 'dns' , chip: '42'},
+              { href: '/docker/containers', text: 'Containers', icon: 'stop' , chip: '42'},
+              { href: '/docker/networks', text: 'Networks', icon: 'share' , chip: '42'},
+              { href: '/docker/volumes', text: 'Volumes', icon: 'storage' , chip: '42'}
             ]
           },
+          { href: '/backend', text: 'Database', icon: 'data_usage' },
           { href: '/alerts', text: 'Alerts', icon: 'message' },
         ]
       }

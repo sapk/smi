@@ -5,14 +5,29 @@
           v-icon reorder
       div(class="navbar__side-title")
         h1(class="text-xs-center text-md-left" v-text="title")
+      v-navbar-items(v-if="user")
+        v-navbar-item( v-bind:item="{ text: user.uid}")
+        v-navbar-item( v-bind:item="{ text: user.displayName}")
+        v-navbar-item( v-bind:item="{ text: user.email}")
+        v-navbar-item( v-bind:item="{ text: user.isAnonymous}")
+        v-navbar-item( v-bind:item="{ href: '#', text: 'account_box', icon: true }")
+        v-navbar-item( v-on:click.native="logout" v-bind:item="{ href: '#', text: 'exit_to_app', icon: true }")
+      v-navbar-items(v-else)
+        v-navbar-item( v-bind:item="{ href: '/login', text: 'Login' }")
 </template>
 
 <script>
 export default {
-  data () {},
+  data () {return {}},
   props: {
-    title: String
+    title: String,
+    user: Object
   },
+  methods: {
+    logout: function(){
+      this.$backend.auth().signOut();
+    }
+  }
 }
 </script>
 

@@ -1,0 +1,25 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": ".",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "database.rules.json",
+      "webpack.config.js",
+      "yarn.lock",
+      "src/",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.log"
+    ]
+
+  }
+}
