@@ -56,6 +56,7 @@
             /*header: "test",*/
             parent: { text: 'Collectors', icon: 'device_hub'},
             items: [
+              { href: '/collector/add', text: 'Add', icon: 'add'},
             ],
           },
           {

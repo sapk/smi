@@ -23,10 +23,18 @@
       var app = this;
       this.$vuetify.init()
       this.$vuetify.bus.sub('backend:auth:state-changed', function(state,user){
-        console.log("Auth State Changed", state, user);
+        console.log("Auth State Changed", state, user, app.$route.path);
         app.state = "loaded";
         app.user = app.$backend.auth().currentUser //Shousld be same as local var user
-        //TODO if we are in loggin go back in history router ?
+        if(app.$route.path == "/login" && app.user != null){
+          console.log(app.$router)
+          if(localStorage.loginBackPath != null && localStorage.loginBackPath != "" && localStorage.loginBackPath != "/login" ){
+            //go back before login page
+            app.$router.push(localStorage.loginBackPath)
+          }else{
+            app.$router.push("/") //If no back page go home
+          }
+        }
       })
     },
     methods: {

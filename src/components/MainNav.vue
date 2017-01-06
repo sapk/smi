@@ -26,6 +26,7 @@ export default {
   methods: {
     logout: function(){
       this.$backend.auth().signOut();
+      this.$router.push("/"); //Go home
     }
   }
 }
