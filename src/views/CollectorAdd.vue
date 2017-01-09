@@ -1,6 +1,6 @@
 <template lang="pug">
-  div(id="collector-view")
-    v-card(style="margin:50px;")
+  div(id="collector-add-view")
+    v-card
       v-card-text ./sca daemon -v -r 5m -u "{{db}}/user/{{uid}}" -t "{{token}}"
 
 </template>
@@ -33,3 +33,11 @@
     }
   }
 </script>
+
+<style lang="stylus">
+#collector-add-view
+ .card
+  margin: 50px auto;
+  max-width: 80%;
+  word-break: break-all;
+</style>
