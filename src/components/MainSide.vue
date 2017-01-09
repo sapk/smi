@@ -108,9 +108,12 @@
 
             if (data[key].Docker){ //TODO use systemtime to find if out
               dhosts += 1;
-              dcontainers += Object.keys(data[key].Docker.Containers).length;
-              dnetworks += Object.keys(data[key].Docker.Networks).length;
-              dvolumes += Object.keys(data[key].Docker.Volumes).length;
+              if(data[key].Docker.Containers)
+                dcontainers += Object.keys(data[key].Docker.Containers).length;
+                if(data[key].Docker.Networks)
+                dnetworks += Object.keys(data[key].Docker.Networks).length;
+              if(data[key].Docker.Volumes)
+                dvolumes += Object.keys(data[key].Docker.Volumes).length;
             }
         });
         //Docker
