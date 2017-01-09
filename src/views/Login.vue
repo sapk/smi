@@ -22,7 +22,7 @@
      };
     },
     mounted () {
-      console.log(this.$backend)
+      //console.log("Login: backend",this.$backend);
       this.$emit('view', this.meta())
     },
     preFetch () {

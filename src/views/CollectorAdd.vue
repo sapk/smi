@@ -11,7 +11,7 @@
 
      var u = JSON.parse(JSON.stringify(app.$backend.auth().currentUser)) //TODO better
      return {
-       db: this.$backend.config.databaseURL,
+       db: this.$backend.config.databaseURL, //TODO don't be base on .config tmp fix
        uid: u.uid,
        token: u.stsTokenManager.accessToken
      };

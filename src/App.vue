@@ -2,7 +2,7 @@
   v-app(left-fixed-sidebar top-navbar :class="state")
     main-nav(v-bind:title="title" v-bind:user="user")
     main
-      main-side
+      main-side(v-bind:data="database.data")
       v-content
         v-container(fluid)
           transition(name="slide" mode="out-in")
@@ -16,7 +16,9 @@
       return {
         title : "SMI",
         state : "loading",
-        user: this.$backend.auth().currentUser
+        user: this.$backend.auth().currentUser,
+        database : {},
+        _database : null,
       }
     },
     mounted () {
@@ -27,7 +29,7 @@
         app.state = "loaded";
         app.user = app.$backend.auth().currentUser //Shousld be same as local var user
         if(app.$route.path == "/login" && app.user != null){
-          console.log(app.$router)
+          //console.log(app.$router)
           if(localStorage.loginBackPath != null && localStorage.loginBackPath != "" && localStorage.loginBackPath != "/login" ){
             //go back before login page
             app.$router.push(localStorage.loginBackPath)
@@ -35,16 +37,32 @@
             app.$router.push("/") //If no back page go home
           }
         }
+        if(state){ //Logged in
+          app.database = {}; //Reset data obj
+          app._database = app.$backend.database().ref('user/' + app.user.uid); //TODO may be more effiecent and not watch @ root ?
+          console.log("Database ready",'user/' + app.user.uid ,app._database);
+          app._database.on('child_added', function(data) {
+            console.log("DB event", data.key, data.val())
+            app.$set(app.database, data.key, data.val())
+          })
+          app._database.on('child_changed', function(data) {
+            console.log("DB event", data.key, data.val())
+            app.$set(app.database, data.key, data.val())
+          })
+          app._database.on('child_removed', function(data) {
+            console.log("DB event", data.key, data.val())
+            app.$set(app.database, data.key, data.val())
+          })
+        }
       })
     },
     methods: {
       viewLoaded (meta) {
-        console.log("viewLoaded",meta)
+        console.log("viewLoaded", meta)
         if (typeof meta === 'string') {
           return this.title = meta
         }
         this.title = meta.page_title
-
         this.$vuetify.bus.pub('meta:title', meta.title)
       }
     }

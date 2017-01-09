@@ -23,7 +23,7 @@ var router = new Router({
     { path: '/', meta:{auth: false}, component: HomeView },
     { path: '/login', meta:{auth: false}, component: LoginView },
     { path: '/overview', meta:{auth: true}, component: OverviewView },
-    { path: '/collector/add', meta:{auth: true}, component: CollectorAddView },
+    { path: '/collector-add', meta:{auth: true}, component: CollectorAddView },
     { path: '/collector/:id', meta:{auth: true}, component: CollectorView },
     { path: '/host/:id', meta:{auth: true}, component: HostView },
     { path: '/docker/hosts', meta:{auth: true}, component: DockerHostsView },

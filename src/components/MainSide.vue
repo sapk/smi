@@ -46,6 +46,9 @@
 
 <script>
   export default {
+    props: {
+      data: Object
+    },
     data () {
       return {
         app_name: "Simple Monitor Interface",
@@ -56,28 +59,86 @@
             /*header: "test",*/
             parent: { text: 'Collectors', icon: 'device_hub'},
             items: [
-              { href: '/collector/add', text: 'Add', icon: 'add'},
+              { href: '/collector-add', text: 'Add', icon: 'add'},
             ],
           },
           {
             parent: { text: 'Hosts', icon: 'dns'},
-            items: [
-            ]
+            items: []
           },
           {
             parent: { text: 'Docker', icon: 'widgets'},
             items: [
-              { href: '/docker/hosts', text: 'Hosts', icon: 'dns' , chip: '42'},
-              { href: '/docker/containers', text: 'Containers', icon: 'stop' , chip: '42'},
-              { href: '/docker/networks', text: 'Networks', icon: 'share' , chip: '42'},
-              { href: '/docker/volumes', text: 'Volumes', icon: 'storage' , chip: '42'}
+              { href: '/docker/hosts', text: 'Hosts', icon: 'dns' , chip: 0},
+              { href: '/docker/containers', text: 'Containers', icon: 'stop' , chip: 0},
+              { href: '/docker/networks', text: 'Networks', icon: 'share' , chip: 0},
+              { href: '/docker/volumes', text: 'Volumes', icon: 'storage' , chip: 0}
             ]
           },
           { href: '/backend', text: 'Database', icon: 'data_usage' },
           { href: '/alerts', text: 'Alerts', icon: 'message' },
         ]
       }
+    },
+    mounted () {
+      //Monitor data
+      var self = this;
+      this.$watch('data', function (data) {
+        self.updateMenu(self,data);
+      })
+      console.log(self);
+      if(self.data){
+        self.updateMenu(self,self.$data.data);
+      }
+    },
+    methods : {
+      updateMenu(self,data){
+        console.log("Data changed", data, self.$data);
+
+        //Collecors
+        self.$data.items[2].items = [
+          { href: '/collector-add', text: 'Add', icon: 'add'},
+        ];
+        //Hosts
+        self.$data.items[3].items = [];
+        var dhosts = 0, dcontainers = 0, dnetworks = 0, dvolumes = 0;
+        Object.keys(data).forEach((key, i, list) => {
+            self.$data.items[2].items.unshift({ href: '/collector/'+key, text: key, icon: 'extension'});
+            self.$data.items[3].items.unshift({ href: '/host/'+key, text: data[key].Host.Name, icon: 'stop'});
+
+            if (data[key].Docker){ //TODO use systemtime to find if out
+              dhosts += 1;
+              dcontainers += Object.keys(data[key].Docker.Containers).length;
+              dnetworks += Object.keys(data[key].Docker.Networks).length;
+              dvolumes += Object.keys(data[key].Docker.Volumes).length;
+            }
+        });
+        //Docker
+        self.$data.items[4].items = [
+          { href: '/docker/hosts', text: 'Hosts', icon: 'dns' , chip: dhosts},
+          { href: '/docker/containers', text: 'Containers', icon: 'stop' , chip: dcontainers},
+          { href: '/docker/networks', text: 'Networks', icon: 'share' , chip: dnetworks},
+          { href: '/docker/volumes', text: 'Volumes', icon: 'storage' , chip: dvolumes}
+        ];
+      }
     }
+
+    /*,
+    computed : {
+      collectors () {
+        //return ["collector0","collector1"];
+        return [
+          { href: '/host/collector0', text: 'Collector0', icon: 'cogs'},
+          { href: '/host/collector1', text: 'Collector1', icon: 'cogs'}
+        ];
+      },
+      hosts () {
+        //return ["test0","test1"];
+        return [
+          { href: '/host/test0', text: 'Test0', icon: ''}
+        ];
+      }
+    }*/
   }
 </script>
 
@@ -104,6 +165,13 @@
 
         i
           padding: 0
+    .sidebar__item[href^="/collector/"]
+      span
+        overflow: hidden;
+        word-break: keep-all;
+        font-size: 95%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
   .vuetify
     text-align: center
