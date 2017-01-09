@@ -12,7 +12,7 @@
         v-navbar-item( v-else v-bind:item="{ href: '#', text: 'account_box', icon: true }")
         v-navbar-item( v-on:click.native="logout" v-bind:item="{ href: '#', text: 'exit_to_app', icon: true }")
       v-navbar-items(v-else style="height: 70px;")
-        v-navbar-item( v-bind:item="{ href: '/login', text: 'Login' }")
+        v-navbar-item( v-bind:item="{ href: '/login', text: 'Login', router:true }")
 </template>
 
 <script>
