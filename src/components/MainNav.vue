@@ -5,12 +5,13 @@
           v-icon reorder
       div(class="navbar__side-title")
         h1(class="text-xs-center text-md-left" v-text="title" v-bind:style="title_style")
-      v-navbar-items(v-if="user")
+      v-navbar-items(v-if="user" style="height: 70px;")
         v-navbar-item( v-bind:item="{ text: user.displayName}")
         v-navbar-item( v-bind:item="{ text: user.email}")
-        v-navbar-item( v-bind:item="{ href: '#', text: 'account_box', icon: true }")
+        v-navbar-item( v-if="user.photoURL" v-bind:item="{href: user.photoURL, text: '<img style=\\'height: 2.4rem;width: 2.4rem;margin-bottom: -0.4rem;border-radius: 1.2rem;\\' src=\\''+user.photoURL+'\\' />'}")
+        v-navbar-item( v-else v-bind:item="{ href: '#', text: 'account_box', icon: true }")
         v-navbar-item( v-on:click.native="logout" v-bind:item="{ href: '#', text: 'exit_to_app', icon: true }")
-      v-navbar-items(v-else)
+      v-navbar-items(v-else style="height: 70px;")
         v-navbar-item( v-bind:item="{ href: '/login', text: 'Login' }")
 </template>
 
