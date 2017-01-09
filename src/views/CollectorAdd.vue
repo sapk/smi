@@ -1,11 +1,21 @@
 <template lang="pug">
-  div(id="collector-view") Collector
+  div(id="collector-view")
+    v-card(style="margin:50px;")
+      v-card-text ./sca daemon -v -r 5m -u "{{db}}/user/{{uid}}" -t "{{token}}"
+
 </template>
 
 <script>
   export default {
     data () {
-     return {};
+
+     var u = JSON.parse(JSON.stringify(app.$backend.auth().currentUser)) //TODO better
+     return {
+       db: this.$backend.config.databaseURL,
+       uid: u.uid,
+       token: u.stsTokenManager.accessToken
+     };
+     //TODO find way in sca to refresh access token with refreshToken ?
     },
     mounted () {
       this.$emit('view', this.meta())

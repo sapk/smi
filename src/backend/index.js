@@ -40,6 +40,7 @@ export default {
   install: function(Vue, options){
       //console.log("Setting db install");
       var db = firebase.initializeApp(config);
+      db.config = config; //TODO don't use that
       db.auth().onAuthStateChanged(function (user) {
           db.vueRoot.$vuetify.bus.pub('backend:auth:state-changed', user != null , user)
       	}, function(error) {
