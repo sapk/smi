@@ -1,12 +1,12 @@
 <template lang="pug">
   v-app(left-fixed-sidebar top-navbar :class="state")
-    main-nav(v-bind:title="title" v-bind:user="user")
+    main-nav(v-bind:title="title" v-bind:title_style="title_style" v-bind:user="user")
     main
       main-side(v-bind:data="database.data")
       v-content
         v-container(fluid)
           transition(name="slide" mode="out-in")
-            router-view(@view="viewLoaded")
+            router-view(@view="viewLoaded" v-bind:data="database.data" v-bind:config="database.config")
     div(id="loading-mask")
       v-progress-circular( v-bind:size="70" indeterminate)
 </template>
@@ -15,6 +15,7 @@
     data () {
       return {
         title : "SMI",
+        title_style : "2rem",
         state : "loading",
         user: this.$backend.auth().currentUser,
         database : {},
@@ -63,6 +64,7 @@
           return this.title = meta
         }
         this.title = meta.page_title
+        this.title_style = meta.page_title_style
         this.$vuetify.bus.pub('meta:title', meta.title)
       }
     }

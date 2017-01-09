@@ -4,7 +4,7 @@
       v-navbar-side-icon(v-sidebar:mainsidebar="" class="hidden-md-and-up")
           v-icon reorder
       div(class="navbar__side-title")
-        h1(class="text-xs-center text-md-left" v-text="title")
+        h1(class="text-xs-center text-md-left" v-text="title" v-bind:style="title_style")
       v-navbar-items(v-if="user")
         v-navbar-item( v-bind:item="{ text: user.uid}")
         v-navbar-item( v-bind:item="{ text: user.displayName}")
@@ -21,6 +21,7 @@ export default {
   data () {return {}},
   props: {
     title: String,
+    title_style: String,
     user: Object
   },
   methods: {

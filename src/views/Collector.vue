@@ -1,9 +1,17 @@
 <template lang="pug">
   div(id="collector-view") Collector {{ $route.params.id }}
+   template(v-if="data && data[$route.params.id]")
+    div(class="uptime") Uptime :
+     span(v-since="data[$route.params.id].Collector.StartTime")
+    div(v-if="false" class="data") {{data[$route.params.id].Collector}}
 </template>
 
 <script>
+  import moment from 'moment'
   export default {
+    props: {
+      data: Object
+    },
     data () {
      return {};
     },
@@ -13,11 +21,26 @@
     preFetch () {
       return this.methods.meta()
     },
+    directives: {
+      since: {
+        // directive definition
+        // When the bound element is inserted into the DOM...
+        inserted: function (el, binding, vnode) {
+          console.log("v-since inserted",el,binding,vnode);
+          el.textContent= moment(binding.value).fromNow();
+        },
+        update: function (el, binding, vnode) {
+          console.log("v-since update",el,binding,vnode);
+          el.textContent= moment(binding.value).fromNow();
+        }
+      }
+    },
     methods: {
       meta () {
         return {
           title: "Collector "+this.$route.params.id+" | Simple Monitor Interface",
-          page_title: "Collector "+this.$route.params.id
+          page_title: "Collector "+this.$route.params.id,
+          page_title_style: "font-size:2rem;"
         }
       }
     }
