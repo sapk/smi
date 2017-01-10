@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(id="overview-view") Overview
+  div(id="overview-view" style="padding:20px") Overview
 </template>
 
 <script>

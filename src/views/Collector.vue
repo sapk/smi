@@ -1,11 +1,12 @@
 <template lang="pug">
-  div(id="collector-view") Collector {{ $route.params.id }}
+  div(id="collector-view" style="padding:20px") Collector {{ $route.params.id }}
    template(v-if="data && data[$route.params.id]")
     div(class="uptime") Uptime :
      span(v-since="data[$route.params.id].Collector.StartTime")
-    div(class="update") Last Update : 
+    div(class="update") Last Update :
      span(v-since="data[$route.params.id].Collector.UpdateTime")
-    div(v-if="false" class="data") {{data[$route.params.id].Collector}}
+    div(class="status") Status :
+     span {{data[$route.params.id].Collector.Status}}
 </template>
 
 <script>

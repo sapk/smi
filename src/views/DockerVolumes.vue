@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(id="docker-volumes-view") Docker -> Volumes
+  div(id="docker-volumes-view" style="padding:20px") Docker -> Volumes
 </template>
 
 <script>

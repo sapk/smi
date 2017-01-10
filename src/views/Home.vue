@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(id="home-view") Hello World
+  div(id="home-view" style="padding:20px") Hello World
 </template>
 
 <script>

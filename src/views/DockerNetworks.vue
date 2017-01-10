@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(id="docker-networks-view") Docker -> Networks
+  div(id="docker-networks-view" style="padding:20px") Docker -> Networks
 </template>
 
 <script>
