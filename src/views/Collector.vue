@@ -3,6 +3,8 @@
    template(v-if="data && data[$route.params.id]")
     div(class="uptime") Uptime :
      span(v-since="data[$route.params.id].Collector.StartTime")
+    div(class="update") Last Update : 
+     span(v-since="data[$route.params.id].Collector.UpdateTime")
     div(v-if="false" class="data") {{data[$route.params.id].Collector}}
 </template>
 
@@ -27,11 +29,11 @@
         // When the bound element is inserted into the DOM...
         inserted: function (el, binding, vnode) {
           console.log("v-since inserted",el,binding,vnode);
-          el.textContent= moment(binding.value).fromNow();
+          el.textContent= moment.unix(binding.value).fromNow();
         },
         update: function (el, binding, vnode) {
           console.log("v-since update",el,binding,vnode);
-          el.textContent= moment(binding.value).fromNow();
+          el.textContent= moment.unix(binding.value).fromNow();
         }
       }
     },
