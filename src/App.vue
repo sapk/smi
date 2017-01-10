@@ -4,7 +4,7 @@
     main
       main-side(v-bind:data="database.data")
       v-content
-        v-container(fluid)
+        v-container(fluid id="main-container")
           transition(name="slide" mode="out-in")
             router-view(@view="viewLoaded" v-bind:data="database.data" v-bind:config="database.config")
     div(id="loading-mask")
@@ -86,5 +86,9 @@
   .loaded #loading-mask
      opacity: 0;
      visibility: hidden;
-
+  /*
+  #main-container
+    height: 100%;
+    overflow-y: auto;
+  */
 </style>

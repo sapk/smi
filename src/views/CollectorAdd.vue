@@ -1,7 +1,26 @@
 <template lang="pug">
   div(id="collector-add-view")
     v-card
-      v-card-text ./sca daemon -u "{{db}}/user/{{uid}}" -k {{apiKey}} -t "{{refreshToken}}"
+      v-card-row
+        v-tabs(id="tabs")
+          v-tabs-tabs
+            v-tab(href="tabInstall") Install
+            v-tab(href="tabStart" selected) Start
+            v-tab(href="tabConfig") Config
+          v-tabs-items(class="white")
+            v-tabs-item(id="tabInstall")
+              h6 System :
+              code TODO
+              h6 Docker :
+              code TODO
+              h6 Go get :
+              code go get -u -v github.com/sapk/sca
+              p <b>NB:</b> Copy $GOPATH/bin/sca in /usr/local/bin or add $GOPATH/bin to your PATH
+            v-tabs-item(id="tabStart")
+              h5 Start a deamon manually for testing :
+              code sca daemon -u "{{db}}/user/{{uid}}" -k {{apiKey}} -t "{{refreshToken}}"
+              p <b>NB:</b> To maintain the deamon across startup use a system package and copy config file to /etc/sca/config.json.
+            v-tabs-item(id="tabConfig")  TODO
 
 </template>
 
@@ -38,8 +57,24 @@
 
 <style lang="stylus">
 #collector-add-view
+/*
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100%;
+*/
  .card
-  margin: 50px auto;
-  max-width: 80%;
-  word-break: break-all;
+   /*margin: 0 auto 15% auto;*/
+   margin: 10% auto 0 auto;
+   width: 80%;
+   word-break: break-all;
+ .tabs
+   margin-bottom: 0;
+   width: 100%;
+ .tabs__item
+   padding: 2rem;
+ code
+   border-radius: 5px;
+   padding: 15px;
+   margin: 0 0 25px 0;
 </style>

@@ -6,8 +6,8 @@
       div(class="hostname") Hostname: {{data[$route.params.id].Host.Name}}
      v-tabs(id="tabs")
        v-tabs-tabs
-         v-tab(href="tabApps") Applications
-         v-tab(href="tabStorages" selected) Storage
+         v-tab(href="tabApps" selected) Applications
+         v-tab(href="tabStorages") Storage
          v-tab(href="tabInterfaces") Interfaces
        v-tabs-items(class="white")
          v-tabs-item(id="tabApps")
