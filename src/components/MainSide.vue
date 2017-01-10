@@ -2,8 +2,9 @@
   v-sidebar(
     id="mainsidebar"
     fixed
+    class="blue-grey darken-4"
   )
-    div(class="vuetify" slot="top")
+    div(class="menu-logo" slot="top")
       router-link(
         to="/",
         class="sidebar__logo"
@@ -176,7 +177,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
 
-  .vuetify
+  .menu-logo
     text-align: center
     border-bottom: 1px solid rgba(#fff, .1)
     margin: 0 0 1rem
@@ -196,6 +197,7 @@
     h1
       font-size: 1.3rem;
       font-weight: bold;
+      margin-bottom: 0.3rem;
 
   .sidebar__item-header
     color: #fff

@@ -59,6 +59,7 @@
     },
     methods: {
       viewLoaded (meta) {
+        //TODO detect if same view but not same id ?
         console.log("viewLoaded", meta)
         if (typeof meta === 'string') {
           return this.title = meta

@@ -1,6 +1,6 @@
 <template lang="pug">
   header
-    v-navbar
+    v-navbar(class="light-blue darken-2")
       v-navbar-side-icon(v-sidebar:mainsidebar="" class="hidden-md-and-up")
           v-icon reorder
       div(class="navbar__side-title")

@@ -45,6 +45,7 @@ router.beforeEach(function (to,from,next) {
      localStorage.loginBackPath=to.path;
      next("/login");
   } else {
+     //router.app.$methods.viewLoaded(to.meta); //Force trigger
      next();
   }
 })
