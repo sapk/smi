@@ -7,6 +7,8 @@
      span(v-since="data[$route.params.id].Collector.UpdateTime")
     div(class="status") Status :
      span {{data[$route.params.id].Collector.Status}}
+    div(class="config") Config :
+     span {{data[$route.params.id].Collector.Config}}
 </template>
 
 <script>
