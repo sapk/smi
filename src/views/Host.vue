@@ -44,6 +44,9 @@
     data () {
      return {};
     },
+    updated () { //Should be also triggered when switching to a other host view
+      this.$emit('view', this.meta())
+    },
     mounted () {
       this.$emit('view', this.meta())
     },

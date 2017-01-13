@@ -20,6 +20,9 @@
     data () {
      return {};
     },
+    updated () { //Should be also triggered when switching to a other collector view
+      this.$emit('view', this.meta())
+    },
     mounted () {
       this.$emit('view', this.meta())
     },

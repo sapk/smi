@@ -4,8 +4,8 @@
       v-card-row
         v-tabs(id="tabs")
           v-tabs-tabs
+            v-tab(href="tabStart" selected) Test It
             v-tab(href="tabInstall") Install
-            v-tab(href="tabStart" selected) Start
             v-tab(href="tabConfig") Config
           v-tabs-items(class="white")
             v-tabs-item(id="tabInstall")
