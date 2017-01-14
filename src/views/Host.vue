@@ -16,8 +16,30 @@
            p {{data[$route.params.id].Host.Proc.Processes }}
            p {{data[$route.params.id].Host.Proc.Memory }}
          v-tabs-item(id="tabStorages")
-           p {{data[$route.params.id].Host.Proc.DiskStats }}
-           p {{data[$route.params.id].Host.Proc.FileSystem }}
+           v-container(fluid style="padding:0 20px")
+            v-row
+             v-col(xs2 v-for="(fs, key) in data[$route.params.id].Host.Proc.FileSystem.List")
+               v-card(style="margin-bottom:20px;")
+                 v-card-row(class="blue-grey lighten-1")
+                   v-card-title(class="white--text") {{fs.Dev}}
+                   v-spacer
+                   div(style="text-align: right;padding-top: 4px;")
+                     v-btn(small class="up") {{data[$route.params.id].Host.Proc.DiskStats.List[fs.Dev.substr(5)].Diff.SectorsRead/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | SectorSize}}/s
+                       v-icon(right) visibility
+                     v-btn(small class="down") {{data[$route.params.id].Host.Proc.DiskStats.List[fs.Dev.substr(5)].Diff.SectorsWritten/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | SectorSize}}/s
+                       v-icon(right) mode_edit
+                 v-card-text
+                   v-card-row(height="25px" style="min-height: 2rem;")
+                     v-icon(class="mr-1") line_style
+                     div {{fs.Type}}
+                   v-card-row(height="25px" style="min-height: 2rem;")
+                     v-icon(class="mr-1") folder_open
+                     div {{fs.Mount}}
+                   v-card-row(height="150px" style="min-height: 2rem;")
+                    file-system-chart(v-bind:height="150" v-bind:width="250"  v-bind:used="fs.Size.Used" v-bind:available="fs.Size.Avail" chartId="testing-storage")
+
+           p(v-if="false") {{data[$route.params.id].Host.Proc.DiskStats }}
+           p(v-if="false") {{data[$route.params.id].Host.Proc.FileSystem }}
          v-tabs-item(id="tabInterfaces")
            v-container(fluid style="padding:0 20px")
             v-row
@@ -27,9 +49,9 @@
                    v-card-title(class="white--text") {{interface.Info.Name}}
                    v-spacer
                    div(style="text-align: right;padding-top: 4px;")
-                     v-btn(small) {{data[$route.params.id].Host.Proc.Network.List[interface.Info.Name].TransmitDiff.Bytes/8/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | FileSize}}/s
+                     v-btn(small class="up") {{data[$route.params.id].Host.Proc.Network.List[interface.Info.Name].TransmitDiff.Bytes/8/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | FileSize}}/s
                        v-icon(right) cloud_upload
-                     v-btn(small) {{data[$route.params.id].Host.Proc.Network.List[interface.Info.Name].ReceiveDiff.Bytes/8/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | FileSize}}/s
+                     v-btn(small class="down") {{data[$route.params.id].Host.Proc.Network.List[interface.Info.Name].ReceiveDiff.Bytes/8/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | FileSize}}/s
                        v-icon(right) cloud_download
                  v-card-text
                    v-card-row(height="25px" style="min-height: 2rem;")
@@ -48,9 +70,17 @@
 
 <script>
   import filesize from 'filesize'
+  //import Chart from 'chart.js'
+  //import Chart from 'vue-bulma-chartjs'
+  //import VueCharts from 'vue-chartjs'
+  import FileSystemChart from '../components/graph/FileSystemChart'
+
   export default {
     props: {
       data: Object
+    },
+    components: {
+      FileSystemChart
     },
     filters: {
       ByteArray: function (array) {
@@ -74,8 +104,11 @@
         //console.log("Returning : ",val)
         return val
       },
+      SectorSize: function (val) {
+        return filesize(val, {suffixes: {B: "Sect",KB: "KSect",MB: "MSect",GB: "GSect"}});
+      },
       FileSize: function (val) {
-        return filesize(val, {bits: true});
+        return filesize(val, {bits: true,round: 0});
       },
       Mac: function (val) {
         if (val==-1) return ''
@@ -118,7 +151,12 @@
 
     },
     data () {
-     return {};
+     return {
+       graph : {
+         width  : 150,
+         height : 150
+       }
+     };
     },
     updated () { //Should be also triggered when switching to a other host view
       this.$emit('view', this.meta())
@@ -128,6 +166,8 @@
     },
     preFetch () {
       return this.methods.meta()
+    },
+    computed : {
     },
     methods: {
       meta () {
@@ -159,12 +199,20 @@
   word-break: break-all;
 }
 
-#tabInterfaces .card .btn{
+#tabInterfaces .card .btn, #tabStorages .card .btn{
   font-size: 75%;
   padding: 0 8px;
-  margin-left: 24px;
+  margin: 0 0 4px -60px;
+  display: block;
+  float: right;
+  right: -4px;
+  position: absolute;
+  top: 4px;
 }
- #tabInterfaces .card .btn i{
+#tabInterfaces .card .btn.down, #tabStorages .card .btn.down{
+  top: 36px;
+}
+#tabInterfaces .card .btn i, #tabStorages .card .btn i{
   font-size: 1.2rem;
   margin-left: 6px;
 }
