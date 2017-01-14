@@ -5,7 +5,7 @@
       div(class="hostname") Host ID: {{ $route.params.id }}
       div(class="hostname") Hostname: {{data[$route.params.id].Host.Name}}
       div(class="hostname") Load: {{data[$route.params.id].Host.Proc.Misc.Avg}}
-      div(class="hostname") Uptime: {{data[$route.params.id].Host.Proc.Misc.Uptime}}
+      div(class="hostname") Uptime: {{data[$route.params.id].Host.Proc.Misc.Uptime | Since }}
      v-tabs(id="tabs")
        v-tabs-tabs
          v-tab(href="tabApps" selected) Applications
@@ -70,6 +70,7 @@
 
 <script>
   import filesize from 'filesize'
+  import moment from 'moment'
   //import Chart from 'chart.js'
   //import Chart from 'vue-bulma-chartjs'
   //import VueCharts from 'vue-chartjs'
@@ -83,6 +84,9 @@
       FileSystemChart
     },
     filters: {
+      Since: function (unix) {
+        return moment().subtract(unix,"seconds").fromNow();
+      },
       ByteArray: function (array) {
         if (!array) return -1
 
