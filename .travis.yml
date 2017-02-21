@@ -10,7 +10,7 @@ before_script:
   - npm install --quiet
   
 script:
-- npm run build
+  - npm run build
 
 after_success:
 - du -hs dist
