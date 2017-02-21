@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "node"
+sudo: false
+cache:
+  directories:
+    - node_modules
+    
+before_script:
+  - npm install --quiet
+  
+script:
+- npm run build
+
+after_success:
+- du -hs dist
