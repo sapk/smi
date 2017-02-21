@@ -1,5 +1,5 @@
 # simple-monitor-interface
-
+[![GitHub release](https://img.shields.io/github/release/sapk/smi.svg)](https://github.com/sapk/smi/releases) [![Travis master](https://api.travis-ci.org/sapk/smi.svg?branch=master)](https://travis-ci.org/sapk/smi) [![codecov](https://codecov.io/gh/sapk/smi/branch/master/graph/badge.svg)](https://codecov.io/gh/sapk/smi)
 > A simple interface to monitor your personal cluster.
 
 ## Build Setup
