@@ -39,6 +39,8 @@ module.exports = {
         loader: 'buble-loader',
         exclude: /node_modules/,
         options: {
+          target: { chrome: 56, firefox: 51, safari:10, edge:14 },
+          transforms: {modules: false},
           objectAssign: 'Object.assign'
         }
       },
