@@ -2,13 +2,13 @@
   div(id="collector-view" style="padding:20px") Collector {{ $route.params.id }}
    template(v-if="data && data[$route.params.id]")
     div(class="uptime") Uptime :
-     span(v-since="data[$route.params.id].Collector.StartTime")
+     span(v-since="data[$route.params.id].collector.StartTime")
     div(class="update") Last Update :
-     span(v-since="data[$route.params.id].Collector.UpdateTime")
+     span(v-since="data[$route.params.id].collector.UpdateTime")
     div(class="status") Status :
-     span {{data[$route.params.id].Collector.Status}}
+     span {{data[$route.params.id].collector.Status}}
     div(class="config") Config :
-     span {{data[$route.params.id].Collector.Config}}
+     span {{data[$route.params.id].collector.Config}}
 </template>
 
 <script>

@@ -105,16 +105,16 @@
         var dhosts = 0, dcontainers = 0, dnetworks = 0, dvolumes = 0;
         Object.keys(data).forEach((key, i, list) => {
             self.$data.items[2].items.unshift({ href: '/collector/'+key, text: key, icon: 'extension'});
-            self.$data.items[3].items.unshift({ href: '/host/'+key, text: data[key].Host.Name, icon: 'stop'});
+            self.$data.items[3].items.unshift({ href: '/host/'+key, text: data[key].host.Name, icon: 'stop'});
 
-            if (data[key].Docker){ //TODO use systemtime to find if out
+            if (data[key].docker){ //TODO use systemtime to find if out
               dhosts += 1;
-              if(data[key].Docker.Containers)
-                dcontainers += Object.keys(data[key].Docker.Containers).length;
-                if(data[key].Docker.Networks)
-                dnetworks += Object.keys(data[key].Docker.Networks).length;
-              if(data[key].Docker.Volumes)
-                dvolumes += Object.keys(data[key].Docker.Volumes).length;
+              if(data[key].docker.Containers)
+                dcontainers += Object.keys(data[key].docker.Containers).length;
+                if(data[key].docker.Networks)
+                dnetworks += Object.keys(data[key].docker.Networks).length;
+              if(data[key].docker.Volumes)
+                dvolumes += Object.keys(data[key].docker.Volumes).length;
             }
         });
         //Docker

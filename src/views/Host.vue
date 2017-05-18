@@ -3,9 +3,9 @@
    template(v-if="data && data[$route.params.id]")
      div(style="padding:20px")
       div(class="hostname") Host ID: {{ $route.params.id }}
-      div(class="hostname") Hostname: {{data[$route.params.id].Host.Name}}
-      div(class="hostname") Load: {{data[$route.params.id].Host.Proc.Misc.Avg}}
-      div(class="hostname") Uptime: {{data[$route.params.id].Host.Proc.Misc.Uptime | Since }}
+      div(class="hostname") Hostname: {{data[$route.params.id].host.Name}}
+      div(class="hostname") Load: {{data[$route.params.id].host.Proc.Misc.Avg}}
+      div(class="hostname") Uptime: {{data[$route.params.id].host.Misc.Uptime | Since }}
      v-tabs(id="tabs")
        v-tabs-tabs
          v-tab(href="tabApps" selected) Applications
@@ -13,20 +13,20 @@
          v-tab(href="tabInterfaces") Interfaces
        v-tabs-items(class="white")
          v-tabs-item(id="tabApps")
-           p {{data[$route.params.id].Host.Proc.Processes }}
-           p {{data[$route.params.id].Host.Proc.Memory }}
+           p {{data[$route.params.id].host.Proc.Processes }}
+           p {{data[$route.params.id].host.Proc.Memory }}
          v-tabs-item(id="tabStorages")
            v-container(fluid style="padding:0 20px")
             v-row
-             v-col(xs2 v-for="(fs, key) in data[$route.params.id].Host.Proc.FileSystem.List")
+             v-col(xs2 v-for="(fs, key) in data[$route.params.id].host.Proc.FileSystem.List")
                v-card(style="margin-bottom:20px;")
                  v-card-row(class="blue-grey lighten-1")
                    v-card-title(class="white--text") {{fs.Dev}}
                    v-spacer
                    div(style="text-align: right;padding-top: 4px;")
-                     v-btn(small class="up") {{data[$route.params.id].Host.Proc.DiskStats.List[fs.Dev.substr(5)].Diff.SectorsRead/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | SectorSize}}/s
+                     v-btn(small class="up") {{data[$route.params.id].host.Proc.DiskStats.List[fs.Dev.substr(5)].Diff.SectorsRead/(data[$route.params.id].host.Proc.Processes.Time-data[$route.params.id].host.Proc.Processes.TimePrev) | SectorSize}}/s
                        v-icon(right) visibility
-                     v-btn(small class="down") {{data[$route.params.id].Host.Proc.DiskStats.List[fs.Dev.substr(5)].Diff.SectorsWritten/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | SectorSize}}/s
+                     v-btn(small class="down") {{data[$route.params.id].host.Proc.DiskStats.List[fs.Dev.substr(5)].Diff.SectorsWritten/(data[$route.params.id].host.Proc.Processes.Time-data[$route.params.id].host.Proc.Processes.TimePrev) | SectorSize}}/s
                        v-icon(right) mode_edit
                  v-card-text
                    v-card-row(height="25px" style="min-height: 2rem;")
@@ -38,20 +38,20 @@
                    v-card-row(height="150px" style="min-height: 2rem;")
                     file-system-chart(v-bind:height="150" v-bind:width="250"  v-bind:used="fs.Size.Used" v-bind:available="fs.Size.Avail" chartId="testing-storage")
 
-           p(v-if="false") {{data[$route.params.id].Host.Proc.DiskStats }}
-           p(v-if="false") {{data[$route.params.id].Host.Proc.FileSystem }}
+           p(v-if="false") {{data[$route.params.id].host.Proc.DiskStats }}
+           p(v-if="false") {{data[$route.params.id].host.Proc.FileSystem }}
          v-tabs-item(id="tabInterfaces")
            v-container(fluid style="padding:0 20px")
             v-row
-             v-col(xs2 v-for="(interface, key) in data[$route.params.id].Host.Interfaces")
+             v-col(xs2 v-for="(interface, key) in data[$route.params.id].host.Interfaces")
                v-card(style="margin-bottom:20px;")
                  v-card-row(class="blue-grey lighten-1")
                    v-card-title(class="white--text") {{interface.Info.Name}}
                    v-spacer
                    div(style="text-align: right;padding-top: 4px;")
-                     v-btn(small class="up") {{data[$route.params.id].Host.Proc.Network.List[interface.Info.Name].TransmitDiff.Bytes/8/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | FileSize}}/s
+                     v-btn(small class="up") {{data[$route.params.id].host.Proc.Network.List[interface.Info.Name].TransmitDiff.Bytes/8/(data[$route.params.id].host.Proc.Processes.Time-data[$route.params.id].host.Proc.Processes.TimePrev) | FileSize}}/s
                        v-icon(right) cloud_upload
-                     v-btn(small class="down") {{data[$route.params.id].Host.Proc.Network.List[interface.Info.Name].ReceiveDiff.Bytes/8/(data[$route.params.id].Host.Proc.Processes.Time-data[$route.params.id].Host.Proc.Processes.TimePrev) | FileSize}}/s
+                     v-btn(small class="down") {{data[$route.params.id].host.Proc.Network.List[interface.Info.Name].ReceiveDiff.Bytes/8/(data[$route.params.id].host.Proc.Processes.Time-data[$route.params.id].host.Proc.Processes.TimePrev) | FileSize}}/s
                        v-icon(right) cloud_download
                  v-card-text
                    v-card-row(height="25px" style="min-height: 2rem;")
@@ -177,7 +177,7 @@
       meta () {
         var name = this.$route.params.id;
         if(this.$data.data && this.$data.data[$route.params.id]){
-          name = this.$data.data[$route.params.id].Host.Name
+          name = this.$data.data[$route.params.id].host.Name
         }
         return {
           title: "Host "+name+" | Simple Monitor Interface",
